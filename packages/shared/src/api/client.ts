@@ -18,8 +18,9 @@
 // DefinePlugin replaces `process.env.API_URL` with a string literal at build time.
 // If it's not replaced (no DefinePlugin), fall back to the runtime window var,
 // then to localhost for local development.
-declare const process: { env: { API_URL?: string } };
+export const TOKEN_KEY = "access_token";
 
+// @ts-ignore
 const API_BASE_URL: string = process.env.API_URL || "http://localhost:3000";
 
 /** Generic HTTP response error with status code */
