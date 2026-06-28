@@ -1,0 +1,16 @@
+/*
+ * Global styles for the Courses micro-frontend.
+ *
+ * The three @tailwind directives inject Tailwind's base reset,
+ * component classes, and utility classes into the final CSS bundle.
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    @apply antialiased;
+  }
+}

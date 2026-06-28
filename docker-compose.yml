@@ -1,0 +1,54 @@
+# Docker Compose configuration for the Life Tracker application.
+# Spins up PostgreSQL, pgAdmin, the NestJS API, and the micro-frontend host.
+# Usage: docker compose up -d
+
+services:
+  # ── PostgreSQL database ──────────────────────────────────────────
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: life_tracker
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    # Health check so dependent services wait until Postgres is truly ready
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ── pgAdmin — browser-based DB management UI ────────────────────
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+
+  # ── NestJS API ──────────────────────────────────────────────────
+  api:
+    build: ./apps/api
+    env_file: ./apps/api/.env
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # ── Micro-frontend host (serves the shell app) ─────────────────
+  host:
+    build: ./apps/host
+    ports:
+      - "3001:80"
+    depends_on:
+      - api
+
+volumes:
+  pgdata:

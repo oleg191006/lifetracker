@@ -1,0 +1,15 @@
+# Don't copy these into the Docker build context
+node_modules
+**/node_modules
+**/dist
+**/.env
+apps/auth
+apps/dashboard
+apps/log
+apps/courses
+apps/analytics
+apps/host
+docs
+docker-compose.yml
+.git
+.gitignore

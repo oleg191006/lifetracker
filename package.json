@@ -1,0 +1,32 @@
+{
+  "name": "life-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal life tracking app with micro-frontend architecture",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:api": "npm run dev --workspace=apps/api",
+    "dev:host": "npm run dev --workspace=apps/host",
+    "dev:auth": "npm run dev --workspace=apps/auth",
+    "dev:dashboard": "npm run dev --workspace=apps/dashboard",
+    "dev:log": "npm run dev --workspace=apps/log",
+    "dev:courses": "npm run dev --workspace=apps/courses",
+    "dev:analytics": "npm run dev --workspace=apps/analytics",
+    "dev:web": "concurrently \"npm run dev:host\" \"npm run dev:auth\" \"npm run dev:dashboard\" \"npm run dev:log\" \"npm run dev:courses\" \"npm run dev:analytics\"",
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
+    "build": "npm run build --workspaces",
+    "build:frontend": "node scripts/build-frontend.js",
+    "build:api": "npm run build --workspace=apps/api",
+    "lint": "npm run lint --workspaces"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

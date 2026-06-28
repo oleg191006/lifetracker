@@ -1,0 +1,62 @@
+/**
+ * Tailwind CSS entry point + global base styles.
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    @apply bg-gray-50 text-gray-900;
+  }
+
+  /* Make all text inputs legible on gray backgrounds */
+  input,
+  textarea,
+  select {
+    @apply text-gray-900;
+  }
+
+  /* Range input — clean minimal style */
+  input[type='range'] {
+    -webkit-appearance: none;
+    appearance: none;
+    @apply w-full h-2 bg-gray-200 rounded-full cursor-pointer outline-none;
+  }
+
+  input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    @apply w-5 h-5 bg-violet-600 rounded-full border-2 border-white shadow-md cursor-pointer;
+  }
+
+  input[type='range']::-moz-range-thumb {
+    @apply w-5 h-5 bg-violet-600 rounded-full border-2 border-white shadow-md cursor-pointer;
+    border: 2px solid white;
+  }
+
+  /* Select arrow — keep native but add text color */
+  select {
+    @apply text-gray-900 bg-gray-50;
+  }
+
+  /* Smooth thin scrollbar */
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-200 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-300;
+  }
+}
