@@ -7,6 +7,6 @@
  * Consumers can import from the package root:
  *   import { User, useAuth, api } from '@life-tracker/shared'
  */
-export * from './types';
-export { api, getToken, setToken, removeToken, ApiError, TOKEN_KEY } from './api/client';
-export { AuthProvider, useAuth } from './auth/AuthContext';
+export * from "./types";
+export { api, getToken, setToken, removeToken, ApiError } from "./api/client";
+export { AuthProvider, useAuth } from "./auth/AuthContext";
