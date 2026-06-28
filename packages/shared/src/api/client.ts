@@ -20,8 +20,10 @@
 // then to localhost for local development.
 export const TOKEN_KEY = "access_token";
 
-// @ts-ignore
-const API_BASE_URL: string = process.env.API_URL || "http://localhost:3000";
+const API_BASE_URL: string =
+  // DefinePlugin замінює це на реальне значення під час білду
+  (typeof process !== "undefined" && process.env?.API_URL) ||
+  "http://localhost:3000";
 
 /** Generic HTTP response error with status code */
 export class ApiError extends Error {
