@@ -20,10 +20,7 @@
 // then to localhost for local development.
 declare const process: { env: { API_URL?: string } };
 
-const API_BASE_URL: string =
-  (typeof process !== 'undefined' && process.env.API_URL) ||
-  (typeof window !== 'undefined' && (window as any).__API_URL__) ||
-  'http://localhost:3000';
+const API_BASE_URL: string = process.env.API_URL || "http://localhost:3000";
 
 /** Generic HTTP response error with status code */
 export class ApiError extends Error {
@@ -32,7 +29,7 @@ export class ApiError extends Error {
     public readonly status: number,
   ) {
     super(message);
-    this.name = 'ApiError';
+    this.name = "ApiError";
   }
 }
 
@@ -50,14 +47,14 @@ async function request<T>(
   path: string,
   body?: unknown,
 ): Promise<T> {
-  const token = localStorage.getItem('access_token');
+  const token = localStorage.getItem("access_token");
 
   const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   };
 
   if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
+    headers["Authorization"] = `Bearer ${token}`;
   }
 
   const response = await fetch(`${API_BASE_URL}${path}`, {
@@ -85,16 +82,16 @@ async function request<T>(
 
 /** Convenience methods */
 export const api = {
-  get: <T>(path: string) => request<T>('GET', path),
-  post: <T>(path: string, body: unknown) => request<T>('POST', path, body),
-  patch: <T>(path: string, body: unknown) => request<T>('PATCH', path, body),
-  delete: <T>(path: string) => request<T>('DELETE', path),
+  get: <T>(path: string) => request<T>("GET", path),
+  post: <T>(path: string, body: unknown) => request<T>("POST", path, body),
+  patch: <T>(path: string, body: unknown) => request<T>("PATCH", path, body),
+  delete: <T>(path: string) => request<T>("DELETE", path),
 };
 
 /** Store / remove the JWT token in localStorage */
 export const setToken = (token: string) =>
-  localStorage.setItem('access_token', token);
+  localStorage.setItem("access_token", token);
 
-export const removeToken = () => localStorage.removeItem('access_token');
+export const removeToken = () => localStorage.removeItem("access_token");
 
-export const getToken = () => localStorage.getItem('access_token');
+export const getToken = () => localStorage.getItem("access_token");
