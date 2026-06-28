@@ -32,10 +32,15 @@ function buildDataSourceOptions(): DataSourceOptions {
     entities,
     migrations,
     // synchronize = true auto-creates/alters tables from entity definitions.
-    // This is great for development but MUST be disabled in production —
-    // it can drop columns unexpectedly. Use migrations in production instead.
+    // NEVER use in production — it can silently drop columns on schema changes.
     synchronize: !isProduction,
     logging: !isProduction,
+    // migrationsRun = true tells TypeORM to automatically execute any pending
+    // migration files on startup. This is how Railway gets its tables created:
+    // 1. App starts → TypeORM connects to Railway PostgreSQL
+    // 2. Checks the `migrations` tracking table for already-run migrations
+    // 3. Runs any new ones → all tables are created
+    migrationsRun: isProduction,
   };
 
   // Railway (and most cloud providers) supply a full connection string.
