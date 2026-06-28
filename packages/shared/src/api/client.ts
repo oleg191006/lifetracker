@@ -20,7 +20,7 @@
 // then to localhost for local development.
 export const TOKEN_KEY = "access_token";
 
-const API_BASE_URL: string = process.env.API_URL || "http://localhost:3000";
+const API_BASE_URL: string = process.env.API_URL;
 
 /** Generic HTTP response error with status code */
 export class ApiError extends Error {
